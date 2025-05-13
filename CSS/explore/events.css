@@ -1,0 +1,89 @@
+/* events-catering.css */
+section {
+    background-color: #f0f0f0;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    color: #f39c12;
+}
+
+section p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #555;
+    margin-top: 20px;
+}
+
+section img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+section .services {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+section .service-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 45%;
+    text-align: center;
+}
+
+section .service-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+section .service-item p {
+    font-size: 1.1rem;
+}
+/* General body styling */
+body {
+    background-color: #f4f4f4;
+}
+
+/* Card styling */
+.card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Heading inside the card */
+.card h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Paragraph inside the card */
+.card p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+/* Optional: Add styling for event images */
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+

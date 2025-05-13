@@ -1,0 +1,77 @@
+/* General body styling */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+/* Card styling */
+.card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 50px; /* Adds space from the top of the page */
+}
+
+/* Heading inside the card */
+.card h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Paragraph inside the card */
+.card p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+/* Styling for recommended dishes */
+.card .recommendations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card .recommendations .dish {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card .recommendations .dish img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card .recommendations .dish h3 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    color: #333;
+}
+
+.card .recommendations .dish p {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 10px;
+}
+
+.card .recommendations .dish span {
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    display: block;
+}

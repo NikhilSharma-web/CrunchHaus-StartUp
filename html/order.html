@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order | CrunchHaus</title>
+    <link rel="stylesheet" href="../css/style.css"> <!-- General Styles -->
+    <link rel="stylesheet" href="../css/order.css"> <!-- Order Page Specific Styles -->
+    <link rel="icon" href="../assets/images/hero-bg.png" type="image/png">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../html/menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="order.html">Order</a></li>
+            </ul>
+        </nav>
+    </header>
+    <form id="order-form">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="text" id="address" placeholder="Address" required />
+        <input type="text" id="phone" placeholder="Phone Number" required />
+        <select id="payment-method">
+            <option value="Cash on Delivery">Cash on Delivery</option>
+        </select>
+        <button type="submit">Place Order</button>
+    </form>
+
+    <footer>
+        <p>&copy; 2025 CrunchHaus. All Rights Reserved.</p>
+    </footer>
+
+    <script src="../JS/index.js"></script>
+    <script src="../JS/order.js"></script>
+</body>
+
+</html>
