@@ -6,15 +6,15 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
+const app = express();
+const PORT = 8000;
+
 app.use((req, res, next) => {
     console.log(`Request Method: ${req.method}`);
     console.log(`Request URL: ${req.url}`);
     console.log(`Request Body: ${JSON.stringify(req.body)}`);
     next();
 });
-const app = express();
-const PORT = 8000;
-
 // Middlewares
 app.use(cors());
 app.use(express.json()); // needed to parse JSON request body
