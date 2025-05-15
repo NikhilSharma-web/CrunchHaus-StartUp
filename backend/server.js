@@ -1,64 +1,56 @@
-// server.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
-// Import route files
-const menuRoutes = require('./routes/menuRoutes');
-const contactRoutes = require('./routes/contactRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-
 dotenv.config();
 
 const app = express();
-
-app.use('/menu', menuRoutes);
-app.use('/contact', contactRoutes);
-app.use('/order', orderRoutes);
-
 const PORT = process.env.PORT || 8000;
 
 // Middlewares
 app.use(cors());
-app.use(express.json()); // needed to parse JSON request body
+app.use(express.json());
 
-// MongoDB Connection
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Connected to MongoDB Atlas'))
     .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// Serve CSS files statically from /css
+// Serve static CSS files
 app.use('/css', express.static(path.join(__dirname, 'css')));
 
-// Serve main index.html on root URL
+// Serve root index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Serve other HTML pages from /html folder
-app.get('/:page', (req, res) => {
-    const page = req.params.page;
-    const allowedPages = ['cart', 'contact', 'explore', 'menu', 'order']; // add your HTML file names without .html here
-    if (allowedPages.includes(page)) {
-        res.sendFile(path.join(__dirname, 'html', `${page}.html`));
-    } else {
-        res.status(404).send('❌ Page not found');
-    }
+// Serve any html files inside html folder or nested folders
+app.get('/*', (req, res) => {
+    const requestedPath = req.params[0]; // e.g. "about" or "explore/explore"
+    const filePath = path.join(__dirname, 'html', requestedPath + '.html');
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            res.status(404).send('❌ Page not found');
+        }
+    });
 });
 
-// API Routes
+// API routes
+const menuRoutes = require('./routes/menuRoutes');
+const contactRoutes = require('./routes/contactRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 app.use('/menu', menuRoutes);
 app.use('/contact', contactRoutes);
 app.use('/order', orderRoutes);
 
-// Fallback for other API routes
+// Fallback 404 for API or unknown routes
 app.use((req, res) => {
     res.status(404).send('❌ Route not found');
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
 });
