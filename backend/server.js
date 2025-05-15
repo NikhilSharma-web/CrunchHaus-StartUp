@@ -33,10 +33,6 @@ app.use((req, res) => {
     res.status(404).send('❌ Route not found');
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://127.0.0.1:${PORT}`);
 });
-
-// app.listen(PORT, () => { //for accessing from the laptop or localhost only 
-//     console.log(`🚀 Server is running on port 3000`);
-// });
