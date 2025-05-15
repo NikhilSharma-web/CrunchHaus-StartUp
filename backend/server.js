@@ -16,8 +16,8 @@ app.use(express.json()); // needed to parse JSON request body
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('✅ Connected to MongoDB Atlas'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+    .then(() => console.log('✅ Connected to MongoDB Atlas'))
+    .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Routes
 const menuRoutes = require('./routes/menuRoutes');
@@ -29,9 +29,14 @@ app.use('/contact', contactRoutes);
 app.use('/order', orderRoutes);
 
 // Fallback route
+app.get('/', (req, res) => {
+    res.send('✅ CrunchHaus Backend is Running!');
+});
+
 app.use((req, res) => {
     res.status(404).send('❌ Route not found');
 });
+
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
