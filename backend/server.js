@@ -6,6 +6,11 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 
+// Import route files
+const menuRoutes = require('./routes/menuRoutes');
+const contactRoutes = require('./routes/contactRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 dotenv.config();
 
 const app = express();
