@@ -11,6 +11,10 @@ const menuRoutes = require('./routes/menuRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
+app.use('/menu', menuRoutes);
+app.use('/contact', contactRoutes);
+app.use('/order', orderRoutes);
+
 dotenv.config();
 
 const app = express();
