@@ -5,7 +5,7 @@ document.getElementById('contact').addEventListener('submit', async function (e)
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
 
-    const response = await fetch('http://127.0.0.1:8000/contact', {
+    const response = await fetch('/contact', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
