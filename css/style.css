@@ -85,6 +85,7 @@ nav ul li a:hover {
     transform: translateY(-3px);
     transition: all 0.3s ease;
 }
+
 /* Founder */
 
 #founder {
@@ -158,6 +159,7 @@ footer {
     margin-top: 360px;
     position: fixed;
 }
+
 .social-links {
     margin-top: 20px;
 }
@@ -186,12 +188,71 @@ footer {
     cursor: pointer;
     font-size: 16px;
     display: block;
-    margin: 0 auto; /* Center the button horizontally */
+    margin: 0 auto;
+    /* Center the button horizontally */
     text-align: center;
-    margin-top: 40px; /* Add some space above the button */
+    margin-top: 40px;
+    /* Add some space above the button */
 }
+
 #checkout-btn:hover {
     background-color: #e67e22;
     font-weight: bolder;
     transition: 0.5s ease-in-out;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        gap: 10px;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .hero {
+        height: 80vh;
+        padding: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .founder-container {
+        flex-direction: column;
+        padding: 0 1rem;
+    }
+
+    .founder-details {
+        max-width: 100%;
+    }
+
+    footer {
+        position: static;
+        margin-top: 100px;
+        padding: 1.5rem 1rem;
+    }
+
+    .social-links img {
+        margin-bottom: 20px;
+    }
 }
