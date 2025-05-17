@@ -27,10 +27,10 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Static files (but no auto index.html shown)
-app.use(express.static(path.join(__dirname, '..'), { index: false }));
+// Static files
+app.use(express.static(path.join(__dirname, '..')));
 
-//  Middleware: require login
+// Middleware: require login
 function requireLogin(req, res, next) {
     if (req.session.userId) {
         return next();
@@ -38,10 +38,10 @@ function requireLogin(req, res, next) {
     return res.redirect('/login');
 }
 
-//  Auth routes (no login required)
+// Auth routes (login, signup, logout etc.) - no login required
 app.use(authRoutes);
 
-//Protected API routes
+// Protected API routes
 const menuRoutes = require('./routes/menuRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const orderRoutes = require('./routes/orderRoutes');
@@ -50,7 +50,7 @@ app.use('/menu', requireLogin, menuRoutes);
 app.use('/contact', requireLogin, contactRoutes);
 app.use('/order', requireLogin, orderRoutes);
 
-// login and signup
+// Login and signup pages accessible without login
 app.get('/login', (req, res) => {
     if (req.session.userId) return res.redirect('/');
     res.sendFile(path.join(__dirname, '..', 'html', 'login.html'));
@@ -61,11 +61,15 @@ app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'html', 'signup.html'));
 });
 
-// Protected HTML pages
-app.get('/', requireLogin, (req, res) => {
+// Root route: redirect to login if not logged in, else main page
+app.get('/', (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
     res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
+// Protected pages
 app.get('/menu', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'html', 'menu.html'));
 });
@@ -78,7 +82,7 @@ app.get('/contact', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'html', 'contact.html'));
 });
 
-// 404
+// 404 fallback - must be last
 app.use((req, res) => {
     res.status(404).send('❌ Route not found');
 });
