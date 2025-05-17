@@ -34,3 +34,15 @@ if (viewCartButton) {
         window.location.href = 'html/menu.html';
     });
 }
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('success')) {
+        alert(params.get('success'));
+        // Clean URL after showing alert
+        const url = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, url);
+    }
+    if (params.has('error')) {
+        alert(params.get('error'));
+    }
+});

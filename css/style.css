@@ -256,3 +256,26 @@ footer {
         margin-bottom: 20px;
     }
 }
+
+/* For Login Logout buttons */
+#auth-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px 20px;
+    background-color: transparent;
+}
+
+.auth-btn {
+    padding: 8px 12px;
+    background-color: #ff6a00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background-color: #e65c00;
+}
