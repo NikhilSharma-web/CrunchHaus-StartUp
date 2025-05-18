@@ -3,10 +3,6 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const router = express.Router();
 
-// ✅ SIGNUP ROUTE
-// routes/authRoutes.js
-
-// Signup
 // Signup route
 router.post('/signup', async (req, res) => {
     try {
@@ -52,8 +48,8 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ email: email.toLowerCase().trim() });
         if (user && await bcrypt.compare(password, user.password)) {
             req.session.userId = user._id;
-            return res.redirect('/login?success=' + encodeURIComponent('You are logged in. Welcome to CrunchHaus!'));
-        } else {
+            return res.redirect('/?success=' + encodeURIComponent('You are logged in. Welcome to CrunchHaus!'));
+        }else {
             return res.redirect('/login?error=' + encodeURIComponent('Invalid credentials'));
         }
 

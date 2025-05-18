@@ -4,13 +4,17 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
 const session = require('express-session');
+
 const authRoutes = require('./routes/authRoutes');
+const menuRoutes = require('./routes/menuRoutes');
+const contactRoutes = require('./routes/contactRoutes');
+const orderRoutes = require('./routes/orderRoutes'); // ✅ Correctly required once
 
 dotenv.config();
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// Middlewares
+// Middleware
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,56 +24,49 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Connected to MongoDB Atlas'))
     .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// Session middleware
+// Session
 app.use(session({
     secret: 'crunchhaus-secret',
     resave: false,
     saveUninitialized: false
 }));
 
-// Static files
-app.use(express.static(path.join(__dirname, '..')));
-
 // Middleware: require login
 function requireLogin(req, res, next) {
-    if (req.session.userId) {
-        return next();
-    }
+    if (req.session.userId) return next();
     return res.redirect('/login');
 }
 
-// Auth routes (login, signup, logout etc.) - no login required
+// Auth routes
 app.use(authRoutes);
 
-// Protected API routes
-const menuRoutes = require('./routes/menuRoutes');
-const contactRoutes = require('./routes/contactRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-
-app.use('/menu', requireLogin, menuRoutes);
-app.use('/contact', requireLogin, contactRoutes);
-app.use('/order', requireLogin, orderRoutes);
-
-// Login and signup pages accessible without login
+// Login page
 app.get('/login', (req, res) => {
     if (req.session.userId) return res.redirect('/');
     res.sendFile(path.join(__dirname, '..', 'html', 'login.html'));
 });
 
+// Signup page
 app.get('/signup', (req, res) => {
     if (req.session.userId) return res.redirect('/');
     res.sendFile(path.join(__dirname, '..', 'html', 'signup.html'));
 });
 
-// Root route: redirect to login if not logged in, else main page
+// Static files (CSS, JS, images, etc.)
+app.use(express.static(path.join(__dirname, '..')));
+
+// Root route
 app.get('/', (req, res) => {
-    if (!req.session.userId) {
-        return res.redirect('/login');
-    }
+    if (!req.session.userId) return res.redirect('/login');
     res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
-// Protected pages
+// ✅ Protected API routes
+app.use('/menu', requireLogin, menuRoutes);
+app.use('/contact', requireLogin, contactRoutes);
+app.use('/order', requireLogin, orderRoutes); // ✅ Now fully effective
+
+// ✅ Protected HTML pages
 app.get('/menu', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'html', 'menu.html'));
 });
@@ -82,7 +79,7 @@ app.get('/contact', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'html', 'contact.html'));
 });
 
-// 404 fallback - must be last
+// 404 fallback
 app.use((req, res) => {
     res.status(404).send('❌ Route not found');
 });
