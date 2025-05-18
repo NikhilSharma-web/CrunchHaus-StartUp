@@ -8,7 +8,7 @@ const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const menuRoutes = require('./routes/menuRoutes');
 const contactRoutes = require('./routes/contactRoutes');
-const orderRoutes = require('./routes/orderRoutes'); // ✅ Correctly required once
+const orderRoutes = require('./routes/orderRoutes'); // Correctly required once
 
 dotenv.config();
 const app = express();
@@ -61,12 +61,12 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
-// ✅ Protected API routes
+// Protected API routes
 app.use('/menu', requireLogin, menuRoutes);
 app.use('/contact', requireLogin, contactRoutes);
-app.use('/order', requireLogin, orderRoutes); // ✅ Now fully effective
+app.use('/order', requireLogin, orderRoutes); // Now fully effective
 
-// ✅ Protected HTML pages
+// Protected HTML pages
 app.get('/menu', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'html', 'menu.html'));
 });

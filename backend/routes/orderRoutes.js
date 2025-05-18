@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Order = require('../models/Order');
 
-// ✅ Middleware to require login
+//  Middleware to require login
 function requireLogin(req, res, next) {
     if (!req.session || !req.session.userId) {
         return res.status(401).json({ error: 'You must be logged in to place an order.' });
@@ -10,7 +10,7 @@ function requireLogin(req, res, next) {
     next();
 }
 
-// ✅ POST /order - Save a new customer order (only if logged in)
+//  POST /order - Save a new customer order (only if logged in)
 router.post('/', requireLogin, async (req, res) => {
     try {
         const { name, address, phone, paymentMethod, items, totalPrice } = req.body;
