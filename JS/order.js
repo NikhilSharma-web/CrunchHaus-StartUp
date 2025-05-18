@@ -58,15 +58,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include', // ✅ Include session cookie
                 body: JSON.stringify(orderData),
             });
+
+            // If redirected (not logged in)
+            if (response.redirected && response.url.includes('/login')) {
+                alert('⚠ Please log in or sign up to place your order.');
+                window.location.href = '/login';
+                return;
+            }
 
             if (!response.ok) throw new Error('Failed to place order');
 
             alert('✅ Order placed successfully!');
             localStorage.removeItem('cartItems');
             localStorage.removeItem('totalPrice');
-            window.location.href = '../index.html'; // or show a thank-you page
+            window.location.href = '../index.html';
         } catch (err) {
             console.error('❌ Error placing order:', err.message);
             alert('❌ Failed to place order. Try again later.');
